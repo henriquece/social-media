@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
@@ -25,8 +28,6 @@ builder.Services.AddSwaggerGen(options => {
 });
 
 builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
-
-// builder.Services.Add()
 
 var app = builder.Build();
 

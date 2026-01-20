@@ -1,14 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Api.Models;
 
-[Index(nameof(Name), IsUnique = true)]
-public class Product {
+public class User {
   public int Id { get; set; }
 
   public string Name { get; set; }
 }
 
-public class ProductDTO {
+public class UserDTO {
   public string Name { get; set; }
 }
