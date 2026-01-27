@@ -7,19 +7,29 @@ module "vpc" {
 
   azs             = ["us-east-2a", "us-east-2b", "us-east-2c"]
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
-  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
+  public_subnets  = ["10.0.101.0/24"]
 
   enable_dns_support   = true
   enable_dns_hostnames = true
 }
 
 resource "aws_security_group" "social_media" {
-  name   = "social_media"
-  vpc_id = module.vpc.vpc_id
+  name        = "social_media"
+  description = "Allow SSH"
+  vpc_id      = module.vpc.vpc_id
 
   tags = {
     Name = "social_media"
   }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
+  security_group_id = aws_security_group.social_media.id
+  description       = "Allow SSH from specific IP"
+  from_port         = 22
+  to_port           = 22
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "104.30.160.22/32"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_postgres" {
@@ -29,4 +39,11 @@ resource "aws_vpc_security_group_ingress_rule" "allow_postgres" {
   to_port           = 5432
   ip_protocol       = "tcp"
   cidr_ipv4         = "104.30.160.22/32"
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_outbound" {
+  security_group_id = aws_security_group.social_media.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = -1
 }
