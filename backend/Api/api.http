@@ -1,4 +1,4 @@
-@api_HostAddress = http://localhost:8080
+@api_HostAddress = http://ec2-3-15-221-241.us-east-2.compute.amazonaws.com:8080
 
 GET {{api_HostAddress}}/users/
 Accept: application/json

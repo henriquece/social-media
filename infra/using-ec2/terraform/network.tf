@@ -41,6 +41,15 @@ resource "aws_vpc_security_group_ingress_rule" "allow_postgres" {
   cidr_ipv4         = "104.30.160.22/32"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "allow_access" {
+  security_group_id = aws_security_group.social_media.id
+  description       = "Allow access from specific IP"
+  from_port         = 8080
+  to_port           = 8080
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "104.30.160.22/32"
+}
+
 resource "aws_vpc_security_group_egress_rule" "allow_all_outbound" {
   security_group_id = aws_security_group.social_media.id
 

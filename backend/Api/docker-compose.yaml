@@ -10,6 +10,7 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 500ms
       retries: 3
+      start_period: 500ms
       start_interval: 500ms
     #volumes:
     #  - type: tmpfs
