@@ -34,7 +34,7 @@ services:
     # image: henriquece/social-media-api:3
     build: ./
     ports:
-      - '80:8080'
+      - '8080:8080'
     depends_on:
       migrate:
         condition: service_completed_successfully
