@@ -57,7 +57,8 @@ services:
 
   certbot:
     image: certbot/certbot
-    no_healthcheck: true
+    healthcheck:
+      disable: true
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
